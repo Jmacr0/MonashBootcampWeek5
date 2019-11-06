@@ -46,7 +46,7 @@ if (JSON.parse(localStorage.getItem('planner')) === null) {
 }
 (function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
-    obj = planner;    
+    obj = planner;
     for (let key in obj) {
         for (let i = 0; i < 9; i++) {
             $('textarea[data-hour="' + key + '"]').text(planner[key]);
@@ -58,7 +58,7 @@ saveBtnIcon.on('click', saveText);
 function saveText() {
     var saveTextArea = $(event.target).parent().siblings('textarea');
     var id = saveTextArea.attr('data-hour');
-    var input = saveTextArea.val();    
+    var input = saveTextArea.val();
     planner[id] = input;
 
     $(this).hide();
@@ -76,13 +76,17 @@ function saveText() {
 }
 
 function timeCheck() {
-    if (textArea.attr('data-hour') === currentHour) {
-        textArea.addClass('present');
-    } else if (textArea.attr('data-hour') < currentHour) {
-        textArea.addClass('past');
-    } else if (textArea.attr('data-hour') > currentHour) {
-        textArea.addClass('future');
-    }
+    textArea.each(function () {
+        let dataHour = $(this).attr('data-hour');
+        $(this).removeClass('present', 'past', 'future');
+        if (dataHour == currentHour) {
+            $(this).addClass('present');
+        } else if (dataHour < currentHour) {
+            $(this).addClass('past');
+        } else if (dataHour > currentHour) {
+            $(this).addClass('future');
+        }
+    });
 }
 timeCheck();
 //Updates half hourly from time of page load
