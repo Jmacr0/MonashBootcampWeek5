@@ -1,4 +1,4 @@
-//slef invoked function displays current time and runs every second
+//self invoked function displays current time and runs every second
 (function updateTime() {
     $('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));
     setInterval(updateTime, 1000)
@@ -15,7 +15,6 @@ var meridiem = hourTimeBlock[0].textContent.slice(1);
 
 var saveBtnIcon = $('.saveBtn i')
 
-
 var planner = {
     nine: '',
     ten: '',
@@ -29,7 +28,7 @@ var planner = {
 }
 
 function clearText() {
-    if(JSON.parse(localStorage.getItem('planner')) === null){
+    if (JSON.parse(localStorage.getItem('planner')) === null) {
         localStorage.setItem('planner', JSON.stringify(planner))
     }
     else if ((moment().format('hA')) === "12AM") {
@@ -52,11 +51,9 @@ clearText();
 function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
     obj = planner;
-    console.log(obj)
-    console.log($('<textarea>').length)
     for (var key in obj) {
         for (var i = 0; i < 9; i++) {
-            $('div[id="' + key + '"]').siblings('textarea').text(obj[key])
+            $('div[id="' + key + '"]').siblings('textarea').text(obj[key]);
         }
     }
 }
@@ -66,13 +63,23 @@ getText(planner);
 saveBtnIcon.on('click', saveText);
 
 function saveText() {
-    var id = $(event.target).parent().attr('id')
-    var input = $(event.target).parent().siblings('textarea').val()
+    var id = $(event.target).parent().attr('id');
+    var input = $(event.target).parent().siblings('textarea').val();
     planner[id] = input
-    console.log(id)
-    console.log(planner)
 
-    localStorage.setItem('planner', JSON.stringify(planner))
+    $(this).hide();
+    //create a save badge when save icon is clicked
+    var test = $('<span>');
+    test.attr('class', 'badge badge-danger');
+    test.html('Saved!');
+    $(this).parent().append(test);
+    //swap visibility of icon and badge for 1500ms
+    setTimeout(() => {
+        $(this).show();
+        $(this).parent().children("span").remove();
+    }, 1500);
+
+    localStorage.setItem('planner', JSON.stringify(planner));
 }
 
 
@@ -140,4 +147,3 @@ function timeCheck() {
     }
 }
 timeCheck();
-
