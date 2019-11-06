@@ -1,4 +1,11 @@
-$('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));
+//slef invoked function displays current time and runs every second
+(function updateTime() {
+    $('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));
+    setInterval(updateTime, 1000)
+})();
+//I want something to update on the hour every hour, so this is a placeholder
+//Placeholder updates half hourly from time of page load
+setInterval(timeCheck, 1000 * 60 * 30);
 
 var currentHour = parseInt(moment().format('hh'));
 var currentMeridiem = moment().format('A')
@@ -68,9 +75,9 @@ function saveText() {
 
 function timeCheck() {
     for (let i = 0; i < hourTimeBlock.length; i++) {
-        //double digit times
+        //if timeblock is double digit times eg 10, 11, 12
         if (hourTimeBlock[i].textContent.length === 4) {
-            //AM / PM is same
+            //if current AM / PM is same as timeblock AM / PM
             if (currentMeridiem === hourTimeBlock[i].textContent.slice(2)) {
                 if (currentHour === parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
                     hourTimeBlock[i].nextElementSibling.classList.add('present');
@@ -98,9 +105,9 @@ function timeCheck() {
                     hourTimeBlock[i].nextElementSibling.classList.add('past');
                 }
             }
-            //single digit times
+            //if timeblock is single digit times eg 1, 2, 3
         } else {
-            //AM / PM is same 
+            //if current AM / PM is same as timeblock AM / PM
             if (currentMeridiem === hourTimeBlock[i].textContent.slice(1)) {
                 if (currentHour === parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
                     hourTimeBlock[i].nextElementSibling.classList.add('present');
