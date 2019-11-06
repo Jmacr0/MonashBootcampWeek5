@@ -29,7 +29,10 @@ var planner = {
 }
 
 function clearText() {
-    if ((moment().format('hA')) === "12AM") {
+    if(JSON.parse(localStorage.getItem('planner')) === null){
+        localStorage.setItem('planner', JSON.stringify(planner))
+    }
+    else if ((moment().format('hA')) === "12AM") {
         planner = {
             nine: '',
             ten: '',
