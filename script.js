@@ -1,11 +1,9 @@
-//self invoked function displays current time and runs every second
-(function updateTime() {
-    $('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));
-    setInterval(updateTime, 1000)
-})();
-//I want something to update on the hour every hour, so this is a placeholder
-//Placeholder updates half hourly from time of page load
-setInterval(timeCheck, 1000 * 60 * 30);
+//function displays current time and runs every second
+function updateTime() {
+    $('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));    
+};
+updateTime();
+setInterval(updateTime, 1000)
 
 var currentHour = parseInt(moment().format('hh'));
 var currentMeridiem = moment().format('A')
@@ -69,9 +67,9 @@ function saveText() {
 
     $(this).hide();
     //create a save badge when save icon is clicked
-    var test = $('<span>');
-    test.attr('class', 'badge badge-danger');
-    test.html('Saved!');
+    var badge = $('<span>');
+    badge.attr('class', 'badge badge-danger');
+    badge.html('Saved!');
     $(this).parent().append(test);
     //swap visibility of icon and badge for 1500ms
     setTimeout(() => {
@@ -147,3 +145,7 @@ function timeCheck() {
     }
 }
 timeCheck();
+
+//I want something to update on the hour every hour, so this is a placeholder
+//Placeholder updates half hourly from time of page load
+setInterval(timeCheck, 1000 * 60 * 30);
