@@ -18,19 +18,15 @@ for (let i = 0; i < 9; i++) {
         newTextArea.attr('data-hour', hourIterate);
     }
     hourIterate++
-
     var newSaveBtn = $('<div>').attr('class', 'col-1 saveBtn');
     var iconSave = $('<i>').attr('class', 'fas fa-save w-100');
-
     newSaveBtn.append(iconSave);
     newTimeBlock.append(newHourCol, newTextArea, newSaveBtn);
     $('.container').append(newTimeBlock);
 }
-
 var currentHour = moment().hour();
 var textArea = $('textarea');
 var hourTimeBlock = $('.hour');
-
 var saveBtnIcon = $('.saveBtn i');
 
 var planner = {
@@ -48,23 +44,25 @@ var planner = {
 if (JSON.parse(localStorage.getItem('planner')) === null) {
     localStorage.setItem('planner', JSON.stringify(planner));
 }
-
-function getText(obj) {
+(function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
     obj = planner;
+    console.log(planner);
     for (let key in obj) {
         for (let i = 0; i < 9; i++) {
-            $('textarea[data-hour="' + key + '"]').text(obj[key]);
+            $('textarea[data-hour="' + key + '"]').text(planner[key]);
         }
     }
-}
-getText(planner);
+})(planner);
 
 saveBtnIcon.on('click', saveText);
 function saveText() {
     var saveTextArea = $(event.target).parent().siblings('textarea');
     var id = saveTextArea.attr('data-hour');
     var input = saveTextArea.val();
+    console.log(planner);
+    console.log(id)
+    console.log(planner[id])
     planner[id] = input;
 
     $(this).hide();
@@ -76,9 +74,8 @@ function saveText() {
     //swap visibility of icon and badge for 1500ms
     setTimeout(() => {
         $(this).show();
-        $(this).parent().children("span").remove();
+        badge.remove();
     }, 1500);
-
     localStorage.setItem('planner', JSON.stringify(planner));
 }
 
