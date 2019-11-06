@@ -4,7 +4,7 @@ The purposes of this application is to create a calendar that allows the user to
 
 This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
 
-The app should display standard business hours (9 a.m. to 5 p.m.). Each time slot should represent one hour and contain the following:
+The app will display standard business hours (9 a.m. to 5 p.m.). Each time slot represents one hour and contains the following:
 
 * The time
 
@@ -14,7 +14,11 @@ The app should display standard business hours (9 a.m. to 5 p.m.). Each time slo
 
 Clicking on the save button will store the time and user input in `localStorage`.
 
-Near the top of the calendar, the application should display the current day. Additionally, each hour should be color coded to reflect whether the time slot is in the past, the present, or the future. This will change depending on the time of day.
+Near the top of the calendar, the application displays the current day. 
+
+Additionally, each hour is color coded to reflect whether the time slot is in the past, the present, or the future. 
+
+This will change depending on the time of day.
 
 ## Live Version:
 
@@ -32,11 +36,7 @@ SO THAT I can manage my time effectively
 
 Poor time management can result in missed meetings and deadlines or create the appearance of unprofessionalism. A daily planner allows employees to see their day at a glance, schedule time effectively, and improve productivity. 
 
-## Minimum Requirements
-
-* Functional, deployed application.
-
-* GitHub repository with a unique name and a README describing project.
+## Features
 
 * The application displays timeblocks for standard business hours (9 a.m. to 5 p.m.).
 
