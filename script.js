@@ -46,8 +46,7 @@ if (JSON.parse(localStorage.getItem('planner')) === null) {
 }
 (function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
-    obj = planner;
-    console.log(planner);
+    obj = planner;    
     for (let key in obj) {
         for (let i = 0; i < 9; i++) {
             $('textarea[data-hour="' + key + '"]').text(planner[key]);
@@ -59,10 +58,7 @@ saveBtnIcon.on('click', saveText);
 function saveText() {
     var saveTextArea = $(event.target).parent().siblings('textarea');
     var id = saveTextArea.attr('data-hour');
-    var input = saveTextArea.val();
-    console.log(planner);
-    console.log(id)
-    console.log(planner[id])
+    var input = saveTextArea.val();    
     planner[id] = input;
 
     $(this).hide();
