@@ -19,7 +19,7 @@ for (let i = 0; i < 9; i++) {
     }
     hourIterate++
     var newSaveBtn = $('<div>').attr('class', 'col-1 saveBtn');
-    var iconSave = $('<i>').attr('class', 'fas fa-save w-100');
+    var iconSave = $('<i>').attr('class', 'fas fa-save mx-auto');
     newSaveBtn.append(iconSave);
     newTimeBlock.append(newHourCol, newTextArea, newSaveBtn);
     $('.container').append(newTimeBlock);
@@ -68,7 +68,7 @@ function saveText() {
     $(this).hide();
     //create a save badge when save icon is clicked
     var badge = $('<span>');
-    badge.attr('class', 'badge badge-danger');
+    badge.attr('class', 'badge badge-danger mx-auto');
     badge.html('Saved!');
     $(this).parent().append(badge);
     //swap visibility of icon and badge for 1500ms
