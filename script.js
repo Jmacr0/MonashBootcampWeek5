@@ -21,6 +21,24 @@ var planner = {
     five: '',
 }
 
+function clearText() {
+    if ((moment().format('hA')) === "12AM") {
+        planner = {
+            nine: '',
+            ten: '',
+            eleven: '',
+            twelve: '',
+            one: '',
+            two: '',
+            three: '',
+            four: '',
+            five: '',
+        }
+        localStorage.setItem('planner', JSON.stringify(planner));
+    }
+}
+clearText();
+
 function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
     obj = planner;
@@ -33,7 +51,6 @@ function getText(obj) {
     }
 }
 getText(planner);
-
 
 
 saveBtnIcon.on('click', saveText);
@@ -113,5 +130,4 @@ function timeCheck() {
     }
 }
 timeCheck();
-
 
