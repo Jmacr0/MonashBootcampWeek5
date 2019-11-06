@@ -1,4 +1,4 @@
-$('#currentDay').html(moment().format("dddd, MMMM Do"));
+$('#currentDay').html(moment().format("dddd, MMMM Do h:mm:ss a"));
 
 var currentHour = parseInt(moment().format('hh'));
 var currentMeridiem = moment().format('A')
@@ -6,7 +6,8 @@ var hourTimeBlock = $('.hour');
 var hourTime = parseInt(hourTimeBlock[0].textContent.slice(0, 1));
 var meridiem = hourTimeBlock[0].textContent.slice(1);
 
-var saveBtn = $('.saveBtn')
+var saveBtnIcon = $('.saveBtn i')
+
 
 var planner = {
     nine: '',
@@ -20,18 +21,31 @@ var planner = {
     five: '',
 }
 
+function getText(obj) {
+    planner = JSON.parse(localStorage.getItem('planner'));
+    obj = planner;
+    console.log(obj)
+    console.log($('<textarea>').length)
+    for (var key in obj) {
+        for (var i = 0; i < 9; i++) {
+            $('div[id="' + key + '"]').siblings('textarea').text(obj[key])
+        }
+    }
+}
+getText(planner);
 
-saveBtn.on('click', saveText);
+
+
+saveBtnIcon.on('click', saveText);
 
 function saveText() {
-    var input = $(event.target).siblings('textarea').val()
-    var id = $(event.target).attr('id')
-
+    var id = $(event.target).parent().attr('id')
+    var input = $(event.target).parent().siblings('textarea').val()
+    planner[id] = input
     console.log(id)
     console.log(planner)
-    planner[id] = input
 
-    JSON.stringify(localStorage.setItem('planner', planner))
+    localStorage.setItem('planner', JSON.stringify(planner))
 }
 
 
@@ -41,8 +55,11 @@ function timeCheck() {
         if (hourTimeBlock[i].textContent.length === 4) {
             //AM / PM is same
             if (currentMeridiem === hourTimeBlock[i].textContent.slice(2)) {
+                if (currentHour === parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
+                    hourTimeBlock[i].nextElementSibling.classList.add('present');
+                }
 
-                if (currentHour > parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
+                else if (currentHour > parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
                     if (currentHour === 12) {
                         hourTimeBlock[i].nextElementSibling.classList.add('future');
                     } else {
@@ -68,8 +85,10 @@ function timeCheck() {
         } else {
             //AM / PM is same 
             if (currentMeridiem === hourTimeBlock[i].textContent.slice(1)) {
-
-                if (currentHour > parseInt(hourTimeBlock[i].textContent.slice(0, 1))) {
+                if (currentHour === parseInt(hourTimeBlock[i].textContent.slice(0, 2))) {
+                    hourTimeBlock[i].nextElementSibling.classList.add('present');
+                }
+                else if (currentHour > parseInt(hourTimeBlock[i].textContent.slice(0, 1))) {
                     if (currentHour === 12) {
                         hourTimeBlock[i].nextElementSibling.classList.add('future');
                     } else {
