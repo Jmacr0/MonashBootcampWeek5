@@ -34,9 +34,10 @@ var planner = { 9: '',  10: '', 11: '', 12: '', 13: '', 14: '', 15: '', 16: '', 
 if (JSON.parse(localStorage.getItem('planner')) === null) {
     localStorage.setItem('planner', JSON.stringify(planner));
 }
-(function getText(planner) {
+(function getText(obj) {
     planner = JSON.parse(localStorage.getItem('planner'));
-    for (let key in planner) {
+    obj = planner;
+    for (let key in obj) {
         for (let i = 0; i < 9; i++) {
             $(`textarea[data-hour= ${key}]`).text(planner[key]);
         }
