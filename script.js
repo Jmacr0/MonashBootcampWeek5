@@ -28,21 +28,18 @@ var currentHour = moment().hour();
 var textArea = $('textarea');
 var hourTimeBlock = $('.hour');
 var saveBtnIcon = $('.saveBtn i');
+var badge = $('<span>', { text: "Saved!", class: "badge badge-danger mx-auto", style: "display:" });
+var planner = { 9: '', 10: '', 11: '', 12: '', 13: '', 14: '', 15: '', 16: '', 17: '', };
 
-var planner = { 9: '',  10: '', 11: '', 12: '', 13: '', 14: '', 15: '', 16: '', 17: '',}
-
-if (JSON.parse(localStorage.getItem('planner')) === null) {
-    localStorage.setItem('planner', JSON.stringify(planner));
-}
-(function getText(obj) {
-    planner = JSON.parse(localStorage.getItem('planner'));
-    obj = planner;
-    for (let key in obj) {
+let localStoragePlanner = localStorage.getItem('planner');
+if (localStoragePlanner !== null) {
+    planner = JSON.parse(localStoragePlanner);
+    for (let key in planner) {
         for (let i = 0; i < 9; i++) {
-            $(`textarea[data-hour= ${key}]`).text(planner[key]);
+            $(`textarea[data-hour=${key}]`).text(planner[key]);
         }
     }
-})(planner);
+}
 
 saveBtnIcon.on('click', saveText);
 function saveText() {
@@ -52,8 +49,6 @@ function saveText() {
     planner[id] = input;
 
     $(this).hide();
-    //create a save badge when save icon is clicked
-    var badge = $('<span class="badge badge-danger mx-auto">Saved!</span>');
     $(this).parent().append(badge);
     //swap visibility of icon and badge for 1500ms
     setTimeout(() => {
