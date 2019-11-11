@@ -28,7 +28,7 @@ var currentHour = moment().hour();
 var textArea = $('textarea');
 var hourTimeBlock = $('.hour');
 var saveBtnIcon = $('.saveBtn i');
-var badge = $('<span>', { text: "Saved!", class: "badge badge-danger mx-auto", style: "display:" });
+var badge = $('<span>', { text: "Saved!", class: "badge badge-danger mx-auto"});
 var planner = { 9: '', 10: '', 11: '', 12: '', 13: '', 14: '', 15: '', 16: '', 17: '', };
 
 let localStoragePlanner = localStorage.getItem('planner');
